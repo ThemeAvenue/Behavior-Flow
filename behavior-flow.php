@@ -8,7 +8,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Behavior Flow
- * Plugin URI:        http://themeavenue.net
+ * Plugin URI:        https://github.com/ThemeAvenue/Behavior-Flow
  * Description:       Behavior Flow helps improve the page load time of your site by preloading pages based on users behavior
  * Version:           0.1.0
  * Author:            ThemeAvenue
