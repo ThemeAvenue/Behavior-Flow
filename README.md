@@ -6,6 +6,10 @@ The [prerendering](https://developers.google.com/chrome/whitepapers/prerender) f
 
 Therefore, if you know which page your visitors are most likely to visit next, you can preload it. The User Experience (UX) will therefore be slightly better.
 
+![screenshot](https://cloud.githubusercontent.com/assets/1778633/9759982/611df35c-571b-11e5-889d-1f48e46f6b52.png)
+
+![screenshot2](https://cloud.githubusercontent.com/assets/1778633/9760084/24dd10d4-571c-11e5-83a4-25e230894620.png)
+
 ### Getting Started
 
 1. Firstly, you need to determine how your users traverse and interact with your site. Simply [sign in to Google Analytics](https://www.google.com/analytics/web/#home/) and go to the Behavior Flow page ([Analytics Help](https://support.google.com/analytics/answer/2785577?hl=en)).
