@@ -104,6 +104,7 @@ if ( ! class_exists( 'Behavior_Flow' ) ):
 		 * @return void
 		 */
 		private function includes() {
+			require_once( BH_PATH . 'includes/scripts.php' );
 			require_once( BH_PATH . 'includes/admin/functions-metabox.php' );
 			require_once( BH_PATH . 'includes/functions-prerender.php' );
 		}
