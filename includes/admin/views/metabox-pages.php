@@ -16,15 +16,23 @@ global $post;
 
 $post_types = BF()->post_types;
 $pt_slugs   = array();
+$ordered    = array();
 
 foreach ( $post_types as $pt_slug => $pt_name ) {
+
 	array_push( $pt_slugs, $pt_slug );
+
+	if ( ! array_key_exists( 'archive', $ordered ) ) {
+		$ordered['archive'] = array();
+	}
+
+	$ordered['archive']["archive_$pt_slug"] = $pt_name;
+
 }
 
-$args    = array( 'post_type' => $pt_slugs, 'posts_per_page' => 500, 'post_status' => 'publish' );
-$pages   = new WP_Query( $args );
-$value   = isset( $post ) && is_object( $post ) && is_a( $post, 'WP_Post' ) ? (int) get_post_meta( $post->ID, '_bf_page_prerender', true ) : '';
-$ordered = array();
+$args  = array( 'post_type' => $pt_slugs, 'posts_per_page' => 500, 'post_status' => 'publish' );
+$pages = new WP_Query( $args );
+$value = isset( $post ) && is_object( $post ) && is_a( $post, 'WP_Post' ) ? get_post_meta( $post->ID, '_bf_page_prerender', true ) : '';
 
 foreach ( $pages->posts as $page ) {
 
@@ -44,15 +52,17 @@ foreach ( $pages->posts as $page ) {
 	<?php
 	foreach ( $ordered as $group_id => $group ) {
 
-			printf( '<optgroup label="%s">', $post_types[ $group_id ] );
+		$label = isset( $post_types[ $group_id ] ) ? $post_types[ $group_id ] : __( 'Archives', 'behavior-flow' );
 
-			foreach ( $group as $post_id => $post_title ) {
-				$selected = $value === $post_id ? 'selected="selected"' : '';
-				printf( '<option value="%s" %s>%s</option>', $post_id, $selected, $post_title );
-			}
+		printf( '<optgroup label="%s">', $label );
 
-			echo '</optgroup>';
+		foreach ( $group as $post_id => $post_title ) {
+			$selected = $value == $post_id ? 'selected="selected"' : '';
+			printf( '<option value="%s" %s>%s</option>', $post_id, $selected, $post_title );
 		}
+
+		echo '</optgroup>';
+	}
 	?>
 </select>
 <?php wp_nonce_field( 'bf_mb_save', 'bf_mb_nonce' ); ?>

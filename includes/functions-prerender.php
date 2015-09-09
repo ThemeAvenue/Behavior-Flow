@@ -28,7 +28,23 @@ function bf_get_prerender_page_link( $post_id ) {
 		return false;
 	}
 
-	$next_link = get_permalink( (int) $next );
+	// Post to prerender is actually a post
+	if ( is_numeric( $next ) ) {
+		$next_link = get_permalink( (int) $next );
+	}
+
+	// Post to prerender is maybe an archive
+	else {
+
+		// Not an archive :(
+		if ( false === strpos( $next, 'archive' ) ) {
+			return false;
+		}
+
+		$post_type_id = str_replace( 'archive_', '', $next );
+		$next_link    = get_post_type_archive_link( $post_type_id );
+
+	}
 
 	if ( false === $next_link ) {
 		return false;
@@ -54,6 +70,11 @@ function bf_prerender_meta_tag() {
 	}
 
 	$link = bf_get_prerender_page_link( $post->ID );
+
+	if ( false === $link ) {
+		return;
+	}
+
 	$meta = sprintf( '<link rel="prerender" href="%s" />', $link );
 
 	echo $meta;
