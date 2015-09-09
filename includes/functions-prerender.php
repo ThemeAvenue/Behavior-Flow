@@ -7,6 +7,11 @@
  * @copyright 2014 ThemeAvenue
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * Get link of the page to prerender for a given page
  *

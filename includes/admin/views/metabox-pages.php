@@ -7,6 +7,11 @@
  * @copyright 2014 ThemeAvenue
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 global $post;
 
 $post_types = BF()->post_types;

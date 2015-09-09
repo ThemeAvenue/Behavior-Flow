@@ -7,6 +7,11 @@
  * @copyright 2014 ThemeAvenue
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 add_action( 'add_meta_boxes', 'bf_register_page_prerender_metabox' );
 /**
  * Register the page selection dropdown metabox
