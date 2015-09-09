@@ -21,7 +21,7 @@ add_action( 'admin_enqueue_scripts', 'bf_admin_scripts' );
  */
 function bf_admin_scripts() {
 	wp_register_script( 'bf-select2', BH_URL . 'assets/js/vendor/select2.min.js', array( 'jquery' ), '4.0.0', true );
-	wp_register_script( 'bf-main', BH_URL . 'assets/js/behavior-flow.js', array( 'jquery' ), BF_VERSION, true );
+	wp_register_script( 'bf-main', BH_URL . 'assets/js/behavior-flow.js', array( 'jquery', 'bf-select2' ), BF_VERSION, true );
 	wp_enqueue_script( 'bf-select2' );
 	wp_enqueue_script( 'bf-main' );
 }
