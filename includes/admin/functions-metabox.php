@@ -18,13 +18,13 @@ function bf_register_page_prerender_metabox() {
 
 	$screens = BF()->post_types;
 
-	foreach ( $screens as $screen ) {
+	foreach ( $screens as $slug => $name ) {
 
 		add_meta_box(
 			'bf_page_prerender_metabox',
 			__( 'Page to Prerender', 'behavior-flow' ),
 			'bf_page_prerender_metabox_content',
-			$screen,
+			$slug,
 			'side',
 			'default'
 		);
@@ -76,7 +76,7 @@ function bf_save_page_prerender_metabox_data( $post_id ) {
 	}
 
 	// Check the user's permissions.
-	if ( isset( $_POST['post_type'] ) && ! in_array( $_POST['post_type'], BF()->post_types ) ) {
+	if ( isset( $_POST['post_type'] ) && ! array_key_exists( $_POST['post_type'], BF()->post_types ) ) {
 		return;
 	}
 

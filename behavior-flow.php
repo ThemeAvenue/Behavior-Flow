@@ -133,7 +133,7 @@ if ( ! class_exists( 'Behavior_Flow' ) ):
 				}
 
 				if ( true === $pt_object->public ) {
-					array_push( $screens, $post_type );
+					$screens[ $post_type ] = $pt_object->labels->name;
 				}
 
 			}

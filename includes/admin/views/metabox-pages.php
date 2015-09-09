@@ -9,9 +9,27 @@
 
 global $post;
 
-$args  = array( 'post_type' => BF()->post_types, 'posts_per_page' => 500, 'post_status' => 'publish' );
-$pages = new WP_Query( $args );
-$value = isset( $post ) && is_object( $post ) && is_a( $post, 'WP_Post' ) ? (int) get_post_meta( $post->ID, '_bf_page_prerender', true ) : '';
+$post_types = BF()->post_types;
+$pt_slugs   = array();
+
+foreach ( $post_types as $pt_slug => $pt_name ) {
+	array_push( $pt_slugs, $pt_slug );
+}
+
+$args    = array( 'post_type' => $pt_slugs, 'posts_per_page' => 500, 'post_status' => 'publish' );
+$pages   = new WP_Query( $args );
+$value   = isset( $post ) && is_object( $post ) && is_a( $post, 'WP_Post' ) ? (int) get_post_meta( $post->ID, '_bf_page_prerender', true ) : '';
+$ordered = array();
+
+foreach ( $pages->posts as $page ) {
+
+	if ( ! array_key_exists( $page->post_type, $ordered ) ) {
+		$ordered[ $page->post_type ] = array();
+	}
+
+	$ordered[ $page->post_type ][ $page->ID ] = $page->post_title;
+
+}
 ?>
 
 <p><?php _e( 'Choose the page that visitors usually visit after this one. We will then prerender the page you selected.', 'behavior-flow' ); ?></p>
@@ -19,10 +37,17 @@ $value = isset( $post ) && is_object( $post ) && is_a( $post, 'WP_Post' ) ? (int
 <select name="bf_next_page" id="bf_next_page">
 	<option value=""><?php _e( 'No prerender', 'behavior-flow' ); ?></option>
 	<?php
-	foreach ( $pages->posts as $post ) {
-		$selected = $value === $post->ID ? 'selected="selected"' : '';
-		printf( '<option value="%s" %s>%s</option>', $post->ID, $selected, $post->post_title );
-	}
+	foreach ( $ordered as $group_id => $group ) {
+
+			printf( '<optgroup label="%s">', $post_types[ $group_id ] );
+
+			foreach ( $group as $post_id => $post_title ) {
+				$selected = $value === $post_id ? 'selected="selected"' : '';
+				printf( '<option value="%s" %s>%s</option>', $post_id, $selected, $post_title );
+			}
+
+			echo '</optgroup>';
+		}
 	?>
 </select>
 <?php wp_nonce_field( 'bf_mb_save', 'bf_mb_nonce' ); ?>
