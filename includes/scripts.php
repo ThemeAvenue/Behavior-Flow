@@ -20,7 +20,7 @@ add_action( 'admin_enqueue_scripts', 'bf_admin_scripts' );
  * @return void
  */
 function bf_admin_scripts() {
-	wp_register_script( 'bf-select2', BH_URL . 'assets/js/vendor/select2.min.js', array( 'jquery' ), '3.5.2', true );
+	wp_register_script( 'bf-select2', BH_URL . 'assets/js/vendor/select2.min.js', array( 'jquery' ), '4.0.0', true );
 	wp_register_script( 'bf-main', BH_URL . 'assets/js/behavior-flow.js', array( 'jquery' ), BF_VERSION, true );
 	wp_enqueue_script( 'bf-select2' );
 	wp_enqueue_script( 'bf-main' );
@@ -34,6 +34,8 @@ add_action( 'admin_enqueue_scripts', 'bf_admin_stylesheets' );
  * @return void
  */
 function bf_admin_stylesheets() {
+	wp_register_style( 'bf-select2', BH_URL . 'assets/css/vendor/select2.min.css', false, '4.0.0', 'all' );
 	wp_register_style( 'bf-main', BH_URL . 'assets/css/behavior-flow.css', false, BF_VERSION, 'all' );
+	wp_enqueue_style( 'bf-select2' );
 	wp_enqueue_style( 'bf-main' );
 }
