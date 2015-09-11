@@ -10,7 +10,7 @@
  * Plugin Name:       Behavior Flow
  * Plugin URI:        https://github.com/ThemeAvenue/Behavior-Flow
  * Description:       Behavior Flow helps improve the page load time of your site by preloading pages based on users behavior
- * Version:           0.1.0
+ * Version:           1.0
  * Author:            ThemeAvenue
  * Author URI:        http://themeavenue.net
  * Text Domain:       behavior-flow
@@ -92,7 +92,7 @@ if ( ! class_exists( 'Behavior_Flow' ) ):
 		 * @return void
 		 */
 		private function setup_constants() {
-			define( 'BF_VERSION', '0.1.0' );
+			define( 'BF_VERSION', '1.0.0' );
 			define( 'BH_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 			define( 'BH_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 		}
